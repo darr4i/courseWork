@@ -7,7 +7,9 @@ const cells = [
 ]
 
 const nextMove = (e) => {
-    console.log(e.target);
+    const moveDisplay = document.createElement('div');
+    moveDisplay.classList.add('circle');
+    e.target.append(moveDisplay);
 }
 
 const createBoard = () => {
