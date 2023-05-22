@@ -28,3 +28,30 @@ cells.forEach((cell, index) => {
  })
 }
 createBoard();
+
+const checkScore = () => {
+    const allSquares = document.querySelector(".square");
+    const combo = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+    ]
+
+    combo.forEach(array => {
+        const crossWins = array.every(cell => allSquares[cell].firstChild?.classList.contains("cross"));
+        if (crossWins) {
+            info.textContent = "Cross wins!"
+            allSquares.forEach(square => square.replaceWith(square.cloneNode(true)))
+            return crossWins
+        }
+    })
+
+    combo.forEach(array => {
+        const circleWins = array.every(cell => allSquares[cell].firstChild?.classList.contains("circle"));
+        if (circleWins) {
+            info.textContent = "Circle wins!"
+            allSquares.forEach(square => square.replaceWith(square.cloneNode(true)))
+            return circleWins
+        }
+    })
+}
