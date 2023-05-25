@@ -6,15 +6,15 @@ const cells = [
     "", "", "", "", "", "", "", "", "",
 ]
 
-let go = "cross";
+let turn = "cross";
 info.textContent = "cross goes first"
 
 const nextMove = (e) => {
     const moveDisplay = document.createElement('div');
-    moveDisplay.classList.add(go);
+    moveDisplay.classList.add(turn);
     e.target.append(moveDisplay);
-    go = go === "cross" ? "circle" : "cross";
-    info.textContent = "it is " + go + " now";
+    turn = turn === "cross" ? "circle" : "cross";
+    info.textContent = "it is " + turn + " now";
     e.target.removeEventListener("click", nextMove);
     checkScore();
 }
