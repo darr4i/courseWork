@@ -10,16 +10,19 @@ let turn = "cross";
 info.textContent = "Cross goes first."
 
 const nextMove = (e) => {
+    if (e.target.firstChild !== null) {
+        return;
+    }
     const moveDisplay = document.createElement('div');
     moveDisplay.classList.add(turn);
     e.target.append(moveDisplay);
     turn = turn === "cross" ? "circle" : "cross";
-    info.textContent = "It is " + turn + "now";
-    
+    info.textContent = "It is " + turn + " now";
+
     e.target.removeEventListener("click", nextMove);
 
     checkScore();
-    
+
     if (turn === "circle") {
         setTimeout(aiMove, 300);
     }
@@ -33,6 +36,10 @@ const aiMove = () => {
         return acc;
     }, []);
 
+    if (availableCells.length === 0) {
+        return;
+    }
+
     const randomIndex = Math.floor(Math.random() * availableCells.length);
     const selectedCell = availableCells[randomIndex];
 
@@ -40,10 +47,16 @@ const aiMove = () => {
     moveDisplay.classList.add(turn);
 
     const cellElement = document.getElementById(selectedCell.toString());
+
+    if (cellElement.firstChild !== null) {
+        aiMove(); 
+        return;
+    }
+
     cellElement.append(moveDisplay);
 
     turn = turn === "cross" ? "circle" : "cross";
-    info.textContent = "It is " + turn + "'s turn.";
+    info.textContent = "It is " + turn + " now";
 
     checkScore();
 
